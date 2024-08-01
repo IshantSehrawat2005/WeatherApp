@@ -6,8 +6,8 @@ body, html {
     display: flex;
     justify-content: center;
     align-items: center;
-    background: linear-gradient(135deg, #000000, #2c003e);
-    font-family: 'Montserrat', sans-serif; /* Montserrat */
+    background: linear-gradient(135deg, #4568dc , #b06ab3);
+    font-family: 'Montserrat', sans-serif;
     color: white;
 }
 
@@ -16,26 +16,37 @@ body, html {
     width: 80%;
 }
 
+.app-heading {
+    font-size: 36px; /* Adjust size as needed */
+    margin-bottom: 20px; /* Reduced space between heading and search box */
+    color: white;
+    font-weight: bold;
+    margin-top: -20px; /* Move heading higher */
+}
+
 .search-box {
     position: relative;
-    background: rgba(0, 0, 0, 0.8);
-    padding: 20px;
+    padding: 10px; /* Reduced padding for smaller search bar */
     border-radius: 50px;
     display: flex;
     align-items: center;
     justify-content: center;
     width: 60%;
     margin: auto;
+    background: rgba(255, 255, 255, 0.1); /* Light, semi-transparent white */
+    border: 1px solid rgba(255, 255, 255, 0.2); /* Slight border for definition */
+    backdrop-filter: blur(8px); /* Frosted glass effect */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5); /* Subtle shadow */
 }
 
 .search-box input {
     width: 100%;
-    padding: 15px;
+    padding: 10px; /* Reduced padding for smaller input */
     border: none;
     border-radius: 50px;
-    background: transparent;
+    background: transparent; /* Transparent input background */
     color: white;
-    font-size: 18px;
+    font-size: 16px; /* Adjust font size if needed */
     outline: none;
     -webkit-box-shadow: none;
     box-shadow: none;
@@ -63,53 +74,52 @@ body, html {
 }
 
 #weather-details {
-    margin-top: 80px; /* Increased margin for spacing */
+    margin-top: 40px; /* Reduced space between search box and weather details */
     padding: 20px;
     border-radius: 15px;
-    background: linear-gradient(135deg, #15331c, #000000); /* Gradient background: black */
+    background: linear-gradient(135deg, #3a1c71 , #d76d77, #ffaf7b); /* Gradient background: dark green to black */
     display: none;
     text-align: center;
-    max-width: 60%; /* Match the width of the search box */
-    margin: 80px auto 0; /* Increased top margin for more space between search box and weather details */
-    border: 2px solid rgba(255, 255, 255, 0.3); /* Border around the entire container */
+    max-width: 60%;
+    margin: 40px auto 0; /* Adjust margin to reduce spacing */
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5); /* Shadow effect */
 }
 
 .weather-details-container {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 20px; /* Gap between items */
+    gap: 20px;
     justify-items: center;
 }
 
 .weather-item {
-    padding: 20px; /* Increased padding for larger internal components */
+    padding: 20px;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    border-radius: 10px; /* Rounded corners */
-    width: 120px; /* Increased width for larger size */
-    height: 120px; /* Increased height for larger size */
-    background: rgba(0, 0, 0, 0.6); /* Slightly dark background with less transparency */
+    border-radius: 10px;
+    width: 120px;
+    height: 120px;
+    background: rgba(0, 0, 0, 0.6); /* Dark but slightly transparent background */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5); /* Subtle shadow effect */
-    color: white; /* Text color for better readability on dark background */
-    font-family: 'Montserrat', sans-serif; /* Montserrat */
+    color: white;
+    font-family: 'Montserrat', sans-serif;
 }
 
 .weather-item h3 {
     margin: 0;
-    font-size: 14px; /* Slightly larger heading for better visibility */
-    color: rgba(255, 255, 255, 0.7); /* Lighter color for heading */
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.7);
 }
 
 .weather-item p {
-    font-size: 28px; /* data text size */
+    font-size: 28px;
     margin: 5px 0 0;
 }
 
 .weather-icon {
-    font-size: 28px; /* icon size for better visibility */
+    font-size: 28px;
     margin-bottom: 10px;
 }
 
@@ -119,8 +129,8 @@ body, html {
     }
 
     .weather-item {
-        width: 120px; /* width for smaller screens */
-        height: 120px; /* height for smaller screens */
+        width: 120px; /* Adjusted width for smaller screens */
+        height: 120px; /* Adjusted height for smaller screens */
     }
 
     .search-box input {

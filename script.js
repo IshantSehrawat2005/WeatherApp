@@ -1,23 +1,30 @@
 document.getElementById('search-btn').addEventListener('click', function() {
-    const location = document.getElementById('location-input').value;
-    if (location) {
-        fetchWeather(location);
-        document.getElementById('location-input').value = ''; // Clear the input field after search
+    fetchWeather();
+});
+
+document.getElementById('location-input').addEventListener('keydown', function(event) {
+    if (event.key === 'Enter') {
+        fetchWeather();
     }
 });
 
-function fetchWeather(location) {
-    const apiKey = '781feef8141294bf73ef2ac660103f64';
-    const url = `https://api.openweathermap.org/data/2.5/weather?q=${location}&appid=${apiKey}&units=metric`;
+function fetchWeather() {
+    const location = document.getElementById('location-input').value;
+    if (location) {
+        const apiKey = '781feef8141294bf73ef2ac660103f64';
+        const url = `https://api.openweathermap.org/data/2.5/weather?q=${location}&appid=${apiKey}&units=metric`;
 
-    fetch(url)
-        .then(response => response.json())
-        .then(data => {
-            displayWeather(data);
-        })
-        .catch(error => {
-            console.error('Error fetching weather data:', error);
-        });
+        fetch(url)
+            .then(response => response.json())
+            .then(data => {
+                displayWeather(data);
+            })
+            .catch(error => {
+                console.error('Error fetching weather data:', error);
+            });
+        
+        document.getElementById('location-input').value = ''; // Clear the input field after search
+    }
 }
 
 function displayWeather(data) {
