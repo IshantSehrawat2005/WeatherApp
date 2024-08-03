@@ -11,26 +11,27 @@ document.getElementById('location-input').addEventListener('keydown', function(e
 function fetchWeather() {
     const location = document.getElementById('location-input').value;
     const errorMessage = document.getElementById('error-message');
-    
     if (location) {
         const apiKey = '781feef8141294bf73ef2ac660103f64';
         const url = `https://api.openweathermap.org/data/2.5/weather?q=${location}&appid=${apiKey}&units=metric`;
 
+        // Hide the error message if present
+        if (errorMessage) {
+            errorMessage.style.display = 'none';
+        }
+
         fetch(url)
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Invalid location');
-                }
-                return response.json();
-            })
+            .then(response => response.json())
             .then(data => {
-                displayWeather(data);
-                errorMessage.classList.add('hidden'); 
+                if (data.cod === 200) {
+                    displayWeather(data);
+                } else {
+                    showError('Invalid location. Please try again.');
+                }
             })
             .catch(error => {
-                errorMessage.textContent = 'Location not found. Please try again.';
-                errorMessage.classList.remove('hidden');
-                document.getElementById('weather-details').style.display = 'none'; // Hide weather details
+                console.error('Error fetching weather data:', error);
+                showError('An error occurred. Please try again.');
             });
 
         document.getElementById('location-input').value = ''; // Clear the input field after search
@@ -39,11 +40,11 @@ function fetchWeather() {
 
 function displayWeather(data) {
     const weatherDetails = document.getElementById('weather-details');
-    const weatherIcon = getWeatherIcon(data.weather[0].main); // Get appropriate icon based on weather condition
+    const weatherIcon = getWeatherIcon(data.weather[0].main);
     weatherDetails.innerHTML = `
         <div class="weather-details-container">
             <div class="weather-item">
-                <i class="${weatherIcon} weather-icon"></i>
+                <i class="fas fa-map-marker-alt weather-icon"></i>
                 <h3>Location</h3>
                 <p>${data.name}</p>
             </div>
@@ -53,7 +54,7 @@ function displayWeather(data) {
                 <p>${data.main.temp} °C</p>
             </div>
             <div class="weather-item">
-                <i class="fas fa-cloud weather-icon"></i>
+                <i class="${weatherIcon} weather-icon"></i>
                 <h3>Weather</h3>
                 <p>${data.weather[0].description}</p>
             </div>
@@ -69,21 +70,45 @@ function displayWeather(data) {
     weatherDetails.style.display = 'block';
 }
 
-function getWeatherIcon(condition) {
-    switch (condition) {
-        case 'Clear':
-            return 'fas fa-sun'; // Sunny icon
-        case 'Clouds':
-            return 'fas fa-cloud'; // Cloudy icon
-        case 'Rain':
-            return 'fas fa-cloud-showers-heavy'; // Rainy icon
-        case 'Snow':
-            return 'fas fa-snowflake'; // Snowy icon
-        case 'Thunderstorm':
-            return 'fas fa-bolt'; // Thunderstorm icon
-        case 'Drizzle':
-            return 'fas fa-cloud-rain'; // Drizzle icon
+function getWeatherIcon(weather) {
+    switch (weather.toLowerCase()) {
+        case 'clear':
+            return 'fas fa-sun';
+        case 'clouds':
+            return 'fas fa-cloud';
+        case 'rain':
+            return 'fas fa-cloud-showers-heavy';
+        case 'drizzle':
+            return 'fas fa-cloud-rain';
+        case 'thunderstorm':
+            return 'fas fa-bolt';
+        case 'snow':
+            return 'fas fa-snowflake';
+        case 'mist':
+        case 'smoke':
+        case 'haze':
+        case 'dust':
+        case 'fog':
+        case 'sand':
+        case 'ash':
+        case 'squall':
+        case 'tornado':
+            return 'fas fa-smog';
         default:
-            return 'fas fa-smog'; // Default icon
+            return 'fas fa-cloud';
     }
+}
+
+function showError(message) {
+    let errorMessage = document.getElementById('error-message');
+    if (!errorMessage) {
+        errorMessage = document.createElement('div');
+        errorMessage.id = 'error-message';
+        errorMessage.style.color = 'red';
+        errorMessage.style.textAlign = 'center';
+        errorMessage.style.marginTop = '20px';
+        document.querySelector('.container').appendChild(errorMessage);
+    }
+    errorMessage.textContent = message;
+    errorMessage.style.display = 'block';
 }
